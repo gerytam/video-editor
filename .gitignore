@@ -9,3 +9,6 @@ whisper.cpp
 
 # Transcription scratch
 temp
+
+# Remotion bundle output
+build

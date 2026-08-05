@@ -1,5 +1,5 @@
 import { Caption, createTikTokStyleCaptions } from "@remotion/captions";
-import { getVideoMetadata } from "@remotion/media-utils";
+import { parseMedia } from "@remotion/media-parser";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   AbsoluteFill,
@@ -16,6 +16,10 @@ import { z } from "zod";
 import { loadFont } from "../load-font";
 import { NoCaptionFile } from "./NoCaptionFile";
 import SubtitlePage from "./SubtitlePage";
+import { ZoomPunch } from "./ZoomPunch";
+import { StepBadge } from "./StepBadge";
+import { ProgressPips } from "./ProgressPips";
+import { IntroHook } from "./IntroHook";
 
 export type SubtitleProp = {
   startInSeconds: number;
@@ -30,11 +34,18 @@ export const calculateCaptionedVideoMetadata: CalculateMetadataFunction<
   z.infer<typeof captionedVideoSchema>
 > = async ({ props }) => {
   const fps = 30;
-  const metadata = await getVideoMetadata(props.src);
+  // Parse the container directly (works headless and in Studio) instead of
+  // decoding via the browser, which needs H.264 codec support the renderer
+  // may not have.
+  const { durationInSeconds } = await parseMedia({
+    src: props.src,
+    fields: { durationInSeconds: true },
+    acknowledgeRemotionLicense: true,
+  });
 
   return {
     fps,
-    durationInFrames: Math.floor(metadata.durationInSeconds * fps),
+    durationInFrames: Math.floor((durationInSeconds ?? 0) * fps),
   };
 };
 
@@ -104,15 +115,32 @@ export const CaptionedVideo: React.FC<{
   }, [subtitles]);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "white" }}>
-      <AbsoluteFill>
+    <AbsoluteFill style={{ backgroundColor: "black" }}>
+      <ZoomPunch>
         <OffthreadVideo
           style={{
             objectFit: "cover",
+            width: "100%",
+            height: "100%",
           }}
           src={src}
         />
-      </AbsoluteFill>
+      </ZoomPunch>
+
+      {/* Bottom scrim so captions stay readable over any footage */}
+      <AbsoluteFill
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 32%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Chapter progress + numbered step callouts + opening hook */}
+      <ProgressPips />
+      <StepBadge />
+      <IntroHook />
+
       {pages.map((page, index) => {
         const nextPage = pages[index + 1] ?? null;
         const subtitleStartFrame = (page.startMs / 1000) * fps;
