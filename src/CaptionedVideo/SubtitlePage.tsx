@@ -16,9 +16,12 @@ const SubtitlePage: React.FC<{ readonly page: TikTokPage }> = ({ page }) => {
     frame,
     fps,
     config: {
-      damping: 200,
+      // Lower damping = a springier, more energetic pop-in (punchy vibe).
+      damping: 12,
+      mass: 0.5,
+      stiffness: 120,
     },
-    durationInFrames: 5,
+    durationInFrames: 8,
   });
 
   return (

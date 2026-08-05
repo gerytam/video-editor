@@ -16,12 +16,16 @@ const container: React.CSSProperties = {
   justifyContent: "center",
   alignItems: "center",
   top: undefined,
-  bottom: 350,
-  height: 150,
+  bottom: 380,
+  height: 220,
+  padding: "0 40px",
 };
 
-const DESIRED_FONT_SIZE = 120;
-const HIGHLIGHT_COLOR = "#39E508";
+const DESIRED_FONT_SIZE = 130;
+// MrBeast-punchy palette: the word being spoken pops in bright yellow and
+// scales up; everything else stays white with a heavy black outline.
+const HIGHLIGHT_COLOR = "#FFE800";
+const HIGHLIGHT_SCALE = 1.14;
 
 export const Page: React.FC<{
   readonly enterProgress: number;
@@ -46,46 +50,52 @@ export const Page: React.FC<{
         style={{
           fontSize,
           color: "white",
-          WebkitTextStroke: "20px black",
+          WebkitTextStroke: "22px black",
           paintOrder: "stroke",
+          textAlign: "center",
+          lineHeight: 1.05,
+          filter: "drop-shadow(0 12px 22px rgba(0,0,0,0.45))",
           transform: makeTransform([
-            scale(interpolate(enterProgress, [0, 1], [0.8, 1])),
-            translateY(interpolate(enterProgress, [0, 1], [50, 0])),
+            // Bouncy pop-in: overshoot slightly past full size then settle.
+            scale(interpolate(enterProgress, [0, 0.7, 1], [0.7, 1.06, 1])),
+            translateY(interpolate(enterProgress, [0, 1], [60, 0])),
           ]),
           fontFamily,
           textTransform: "uppercase",
         }}
       >
-        <span
-          style={{
-            transform: makeTransform([
-              scale(interpolate(enterProgress, [0, 1], [0.8, 1])),
-              translateY(interpolate(enterProgress, [0, 1], [50, 0])),
-            ]),
-          }}
-        >
-          {page.tokens.map((t) => {
-            const startRelativeToSequence = t.fromMs - page.startMs;
-            const endRelativeToSequence = t.toMs - page.startMs;
+        {page.tokens.map((t) => {
+          const startRelativeToSequence = t.fromMs - page.startMs;
+          const endRelativeToSequence = t.toMs - page.startMs;
 
-            const active =
-              startRelativeToSequence <= timeInMs &&
-              endRelativeToSequence > timeInMs;
+          const active =
+            startRelativeToSequence <= timeInMs &&
+            endRelativeToSequence > timeInMs;
 
-            return (
-              <span
-                key={t.fromMs}
-                style={{
-                  display: "inline",
-                  whiteSpace: "pre",
-                  color: active ? HIGHLIGHT_COLOR : "white",
-                }}
-              >
-                {t.text}
-              </span>
-            );
-          })}
-        </span>
+          // Frame-based pop: quick overshoot when the word becomes active,
+          // then settle. (CSS transitions don't run in a frame render.)
+          const msSinceActive = timeInMs - startRelativeToSequence;
+          const pop = active
+            ? interpolate(msSinceActive, [0, 90, 180], [1, HIGHLIGHT_SCALE, 1.06], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              })
+            : 1;
+
+          return (
+            <span
+              key={t.fromMs}
+              style={{
+                display: "inline-block",
+                whiteSpace: "pre",
+                color: active ? HIGHLIGHT_COLOR : "white",
+                transform: `scale(${pop})`,
+              }}
+            >
+              {t.text}
+            </span>
+          );
+        })}
       </div>
     </AbsoluteFill>
   );
