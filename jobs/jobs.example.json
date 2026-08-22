@@ -1,0 +1,20 @@
+[
+  {
+    "id": "acme-01",
+    "clientId": "example-client",
+    "video": "public/jobs/acme-01.mp4",
+    "script": "jobs/acme-01.txt",
+    "hook": "Your patio isn't sinking. It was built on sand.",
+    "keyword": "DRAINAGE",
+    "ctaCondition": "If your patio is already pulling away,"
+  },
+  {
+    "id": "acme-02",
+    "clientId": "example-client",
+    "video": "public/jobs/acme-02.mp4",
+    "script": "jobs/acme-02.txt",
+    "hook": "If a contractor quotes you in under an hour, walk away.",
+    "keyword": "ESTIMATE",
+    "ctaCondition": "If you're getting quotes right now,"
+  }
+]

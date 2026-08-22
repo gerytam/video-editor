@@ -34,7 +34,9 @@
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
-    "create-subtitles": "node sub.mjs"
+    "create-subtitles": "node sub.mjs",
+    "batch": "node scripts/batch.mjs",
+    "captions": "node scripts/align-captions.mjs"
   },
   "sideEffects": [
     "*.css"

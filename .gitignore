@@ -12,3 +12,8 @@ temp
 
 # Remotion bundle output
 build
+
+# Client footage and generated captions — big, and client material.
+# Keep these out of git; the manifest in jobs/ is what's version-controlled.
+public/jobs/
+jobs/jobs.json
