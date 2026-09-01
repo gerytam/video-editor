@@ -6,6 +6,12 @@ import {
   captionedVideoSchema,
 } from "./CaptionedVideo";
 import {
+  ProEdit,
+  calculateProMetadata,
+  defaultProProps,
+  proSchema,
+} from "./Pro";
+import {
   Reel,
   calculateReelMetadata,
   defaultReelProps,
@@ -17,6 +23,18 @@ import {
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      {/* Professional editorial cut: motivated reframes, statement
+          typography, progress rail. */}
+      <Composition
+        id="ProEdit"
+        component={ProEdit}
+        calculateMetadata={calculateProMetadata}
+        schema={proSchema}
+        width={1080}
+        height={1920}
+        defaultProps={defaultProProps}
+      />
+
       {/* The productized reel: same house look for every client, brand color
           and handle swapped per client. This is what the batch pipeline
           renders. */}

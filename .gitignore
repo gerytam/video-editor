@@ -17,3 +17,4 @@ build
 # Keep these out of git; the manifest in jobs/ is what's version-controlled.
 public/jobs/
 jobs/jobs.json
+work/
