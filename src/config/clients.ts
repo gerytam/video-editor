@@ -45,7 +45,7 @@ export const CLIENTS: Client[] = [
     handle: "philiprunsads",
     brandColor: "#48AD6E",
     onBrandColor: "#0B140F",
-    // avatar: "avatars/philiprunsads.jpg", // drop the profile photo in and uncomment
+    avatar: "avatars/philiprunsads.jpg",
   },
 ];
 
