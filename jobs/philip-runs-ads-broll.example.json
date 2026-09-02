@@ -3,7 +3,11 @@
     "id": "reel_16_myth_truth_1",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_16_myth_truth_1.mov",
+    "broll": [
+      { "video": "public/jobs/reel_16_myth_truth_1.mov", "startFromSec": 0, "durationSec": 6.24 }
+    ],
+    "grade": "neutral",
+    "bubbleStyle": "solid",
     "broll_hint": "driving or walking",
     "beats": [
       {
@@ -41,14 +45,21 @@
     "id": "reel_17_myth_truth_2",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_17_myth_truth_2.mp4",
+    "broll": [
+      { "video": "public/jobs/reel_17_myth_truth_2.mov", "startFromSec": 8.0, "durationSec": 1.9 },
+      { "video": "public/jobs/reel_17_myth_truth_2.mov", "startFromSec": 32.0, "durationSec": 1.62 },
+      { "video": "public/jobs/reel_17_myth_truth_2.mov", "startFromSec": 38.0, "durationSec": 3.0 }
+    ],
+    "grade": "moody",
+    "bubbleStyle": "outline",
     "broll_hint": "studio or desk",
     "beats": [
       {
         "text": "If it's slow right now...",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 1.9
+        "holdSec": 1.9,
+        "icon": "clock"
       },
       {
         "text": "...it's not bad luck.",
@@ -60,7 +71,8 @@
         "text": "It's that you've been invisible until someone happens to need you.",
         "accentPhrase": "invisible until someone happens to need you",
         "startSec": 3.52,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "spark"
       }
     ],
     "caption": "Being invisible and being unlucky look the same from the outside. They're not the same problem.",

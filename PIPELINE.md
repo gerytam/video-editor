@@ -92,47 +92,66 @@ add music in post (Resolve, or Instagram's own picker after upload) — the
 pop/whoosh SFX are baked in regardless, since they're timed to the cuts.
 
 **1. Put the b-roll in `public/jobs/`**, same as any other job — no script
-file needed, since there's no speech to align.
+file needed, since there's no speech to align. One clip rarely has enough
+*clean* footage for the whole reel — pick a few trims (even from the same
+file) that skip the awkward parts (a fumbled start, a camera bump, dead air)
+rather than using one continuous take.
 
-**2. Write beats into the job manifest** (copy
+**2. Write beats + broll into the job manifest** (copy
 `jobs/philip-runs-ads-broll.example.json`):
 
 ```json
 {
-  "id": "reel_16_myth_truth_1",
+  "id": "reel_17_myth_truth_2",
   "composition": "BrollReel",
   "clientId": "philiprunsads",
-  "video": "public/jobs/reel_16_myth_truth_1.mp4",
+  "broll": [
+    { "video": "public/jobs/reel_17_myth_truth_2.mov", "startFromSec": 8.0, "durationSec": 1.9 },
+    { "video": "public/jobs/reel_17_myth_truth_2.mov", "startFromSec": 32.0, "durationSec": 1.62 }
+  ],
+  "grade": "moody",
+  "bubbleStyle": "outline",
   "beats": [
-    { "text": "It's not the economy.", "accentPhrase": null, "startSec": 0, "holdSec": 1.62 },
-    { "text": "It's that nobody in Coastal Delaware knows who you are yet.",
-      "accentPhrase": "nobody in Coastal Delaware knows who you are yet",
-      "startSec": 3.24, "holdSec": 3.0 }
+    { "text": "If it's slow right now...", "accentPhrase": null, "startSec": 0, "holdSec": 1.9, "icon": "clock" },
+    { "text": "...it's not bad luck.", "accentPhrase": null, "startSec": 1.9, "holdSec": 1.62 }
   ]
 }
 ```
+
+`broll` is one or more trimmed clips, played back to back — `startFromSec`
+is where in the *source* file to start, `durationSec` is how long it plays
+before cutting to the next entry (or the reel ends). Entries can repeat the
+same file at different timestamps, which is the normal way to stitch a
+single longer clip into several cuts. Clip cuts don't need to line up with
+beat boundaries, but they often do naturally and it reads well when they do
+— the flash-cut (`CutFlash.tsx`) fires on every beat boundary regardless.
+
+`grade` (`neutral` / `warm` / `cool` / `moody`, see `grade.ts`) and
+`bubbleStyle` (`solid` / `outline`, see `TextBeatCard.tsx`) exist so
+reels don't all look like the same template reused — pick a different pair
+per reel rather than defaulting to the same combination every time.
 
 `accentPhrase` must be an exact substring of `text`, and (per the content
 plan) sits at the end of the sentence — the beat renders as two stacked
 bubbles, split at that point: a neutral one, then the accent phrase in a
 brand-colored one. A beat can also carry `"icon"`, one of the names in
-`src/BrollReel/Icons.tsx` (`phone`, `camera`, `car`, `chart`, `pin`, ...) —
-a small bouncing badge above the text, for a beat with a concrete noun *or*
-a loosely related idea (a chart for "the economy," a calendar for "the
-season"); it doesn't need to be literal. Most beats can take one — leave it
-off only when nothing fits at all. Duration is driven by the beats (last
-beat's `startSec + holdSec`), not the clip — trim or loop the b-roll to
-match, or redistribute the hold times.
+`src/BrollReel/Icons.tsx` (`phone`, `camera`, `car`, `chart`, `pin`, `clock`,
+`spark`, ...) — a small bouncing badge above the text, for a beat with a
+concrete noun *or* a loosely related idea (a chart for "the economy," a
+calendar for "the season"); it doesn't need to be literal. Most beats can
+take one — leave it off only when nothing fits at all. Duration is driven
+by the beats (last beat's `startSec + holdSec`), not the footage —
+`broll` durations should add up to that, not the other way around.
 
 **3. Render:** `npm run batch` picks the composition per job automatically
 (`--overlay` works here too, for the Resolve hybrid workflow).
 
 The 15-reel Philip Runs Ads batch is in
 `jobs/philip-runs-ads-broll.example.json`, converted straight from the
-content plan. Each job's `video` is a placeholder path
-(`public/jobs/<reel_id>.mp4`) — drop the matching clip in before rendering.
-`caption`/`hashtags` ride along in the manifest for the post itself; the
-renderer ignores them.
+content plan. Each job's `broll` starts out pointing at a placeholder path
+(`public/jobs/<reel_id>.mp4`) — drop the matching clip(s) in and set real
+trim points before rendering. `caption`/`hashtags` ride along in the
+manifest for the post itself; the renderer ignores them.
 
 Client identity tag (small circular photo + `@handle`, top-left, persistent)
 comes from `client.avatar` in `src/config/clients.ts` — add the photo to

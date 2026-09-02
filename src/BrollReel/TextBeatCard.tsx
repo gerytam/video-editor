@@ -28,6 +28,10 @@ export const TextBeatCard: React.FC<{
   readonly onAccentColor: string;
   /** Full crossfade width between adjacent beats, in seconds. */
   readonly crossfadeSec: number;
+  /** "solid" = filled cards (the house default). "outline" = glassy dark
+   *  chips with colored borders/text — pick one per reel so a batch doesn't
+   *  all look like the same template. */
+  readonly bubbleStyle: "solid" | "outline";
   readonly isFirst: boolean;
   readonly isLast: boolean;
 }> = ({
@@ -37,6 +41,7 @@ export const TextBeatCard: React.FC<{
   accentColor,
   onAccentColor,
   crossfadeSec,
+  bubbleStyle,
   isFirst,
   isLast,
 }) => {
@@ -84,6 +89,30 @@ export const TextBeatCard: React.FC<{
   const { primary, secondary } = splitBeatText(beat.text, beat.accentPhrase);
   const fontSize = fontSizeForBeat(beat.text);
 
+  const outline = bubbleStyle === "outline";
+  const primaryBubble = outline
+    ? {
+        color: primaryColor,
+        background: "rgba(8,10,9,0.4)",
+        border: `3px solid rgba(255,255,255,0.55)`,
+      }
+    : {
+        color: primaryColor,
+        background: "rgba(10,14,12,0.62)",
+        border: "3px solid rgba(255,255,255,0.16)",
+      };
+  const secondaryBubble = outline
+    ? {
+        color: accentColor,
+        background: "rgba(8,10,9,0.4)",
+        border: `3px solid ${accentColor}`,
+      }
+    : {
+        color: onAccentColor,
+        background: accentColor,
+        border: "3px solid rgba(0,0,0,0.28)",
+      };
+
   return (
     <div
       style={{
@@ -122,15 +151,13 @@ export const TextBeatCard: React.FC<{
               fontFamily: Baloo2ExtraBold,
               fontSize,
               lineHeight: LINE_HEIGHT,
-              color: primaryColor,
               textAlign: "center",
               textTransform: "uppercase",
-              background: "rgba(10,14,12,0.62)",
-              border: "3px solid rgba(255,255,255,0.16)",
               borderRadius: 22,
               padding: "6px 24px",
               marginBottom: secondary ? 10 : 0,
               boxShadow: "0 10px 24px rgba(0,0,0,0.4)",
+              ...primaryBubble,
             }}
           >
             {primary}
@@ -143,14 +170,12 @@ export const TextBeatCard: React.FC<{
               fontFamily: Baloo2ExtraBold,
               fontSize,
               lineHeight: LINE_HEIGHT,
-              color: onAccentColor,
               textAlign: "center",
               textTransform: "uppercase",
-              background: accentColor,
-              border: "3px solid rgba(0,0,0,0.28)",
               borderRadius: 22,
               padding: "6px 24px",
               boxShadow: "0 10px 24px rgba(0,0,0,0.4)",
+              ...secondaryBubble,
             }}
           >
             {secondary}

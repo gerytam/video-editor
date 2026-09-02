@@ -3,7 +3,6 @@ import {
   AbsoluteFill,
   Audio,
   CalculateMetadataFunction,
-  OffthreadVideo,
   Sequence,
   staticFile,
   useDelayRender,
@@ -12,6 +11,7 @@ import {
 import { z } from "zod";
 import { getClient } from "../config/clients";
 import { TEXT_PRIMARY } from "./beats";
+import { BrollLayer } from "./BrollLayer";
 import { CutFlash } from "./CutFlash";
 import { loadBaloo2 } from "./font";
 import { IdentityTag } from "./IdentityTag";
@@ -27,26 +27,38 @@ export const textBeatSchema = z.object({
   icon: z.string().nullable().optional(),
 });
 
-export const brollReelSchema = z.object({
-  /** B-roll video in public/, e.g. staticFile("jobs/reel_16.mp4") */
+export const brollClipSchema = z.object({
+  /** B-roll video in public/, e.g. "jobs/reel_16.mov" */
   src: z.string(),
+  /** Where in the source file to start, in seconds. */
+  startFromSec: z.number().default(0),
+  /** How long this clip plays before cutting to the next one. */
+  durationSec: z.number(),
+});
+
+export const brollReelSchema = z.object({
+  /** One or more trimmed clips, played back to back. A single long clip
+   *  rarely has enough clean footage for the whole reel, so most reels use
+   *  a few trims — even from the same source file. */
+  broll: z.array(brollClipSchema).min(1),
   /** Which client's branding to use — an id from src/config/clients.ts */
   clientId: z.string(),
   /** Timed text beats. Duration of the reel is the last beat's startSec + holdSec. */
   beats: z.array(textBeatSchema),
   /** Full crossfade width between adjacent beats, in seconds. */
   crossfadeSec: z.number().default(0.12),
+  /** Color grade applied to the b-roll — see grade.ts. */
+  grade: z.enum(["neutral", "warm", "cool", "moody"]).default("neutral"),
+  /** Bubble treatment for the text beats — "solid" (filled cards) or
+   *  "outline" (glassy, colored borders). Vary this across reels so the
+   *  batch doesn't all look like the same template. */
+  bubbleStyle: z.enum(["solid", "outline"]).default("solid"),
   /** Render the alpha-channel graphics layer only (no footage), for
    *  compositing over b-roll cut in DaVinci Resolve. */
   overlayOnly: z.boolean().default(false),
 });
 
 export type BrollReelProps = z.infer<typeof brollReelSchema>;
-
-// Accept either a full staticFile() URL (from defaultProps / Studio) or a
-// bare path relative to public/ (what the batch runner passes on the CLI).
-const resolveSrc = (src: string): string =>
-  /^(https?:|blob:|\/)/.test(src) ? src : staticFile(src);
 
 const totalDuration = (beats: BrollReelProps["beats"]): number => {
   if (!beats.length) return 0;
@@ -71,10 +83,12 @@ export const calculateBrollReelMetadata: CalculateMetadataFunction<
 };
 
 export const BrollReel: React.FC<BrollReelProps> = ({
-  src,
+  broll,
   clientId,
   beats,
   crossfadeSec,
+  grade,
+  bubbleStyle,
   overlayOnly,
 }) => {
   const client = getClient(clientId);
@@ -90,8 +104,6 @@ export const BrollReel: React.FC<BrollReelProps> = ({
     });
   }, [continueRender, handle]);
 
-  const videoSrc = resolveSrc(src);
-
   return (
     <AbsoluteFill
       style={{ backgroundColor: overlayOnly ? "transparent" : "black" }}
@@ -100,15 +112,7 @@ export const BrollReel: React.FC<BrollReelProps> = ({
           and can be dropped straight onto a Resolve timeline. */}
       {overlayOnly ? null : (
         <>
-          <AbsoluteFill>
-            {/* Muted — this is a silent visual bed. Music goes on top in
-                post; the b-roll's own on-camera audio never ships. */}
-            <OffthreadVideo
-              src={videoSrc}
-              muted
-              style={{ objectFit: "cover", width: "100%", height: "100%" }}
-            />
-          </AbsoluteFill>
+          <BrollLayer broll={broll} grade={grade} />
           {/* Scrim under the text area only — transparent up top, ~85%
               black at the bottom edge. Never covers the whole frame. */}
           <AbsoluteFill
@@ -140,6 +144,7 @@ export const BrollReel: React.FC<BrollReelProps> = ({
                   accentColor={client.brandColor}
                   onAccentColor={client.onBrandColor}
                   crossfadeSec={crossfadeSec}
+                  bubbleStyle={bubbleStyle}
                   isFirst={i === 0}
                   isLast={i === beats.length - 1}
                 />
@@ -161,7 +166,7 @@ export const BrollReel: React.FC<BrollReelProps> = ({
 };
 
 export const defaultBrollReelProps: BrollReelProps = {
-  src: staticFile("sample-video.mp4"),
+  broll: [{ src: staticFile("sample-video.mp4"), startFromSec: 0, durationSec: 6.24 }],
   clientId: "philiprunsads",
   beats: [
     { text: "It's not the economy.", accentPhrase: null, startSec: 0, holdSec: 1.62, icon: "chart" },
@@ -175,5 +180,7 @@ export const defaultBrollReelProps: BrollReelProps = {
     },
   ],
   crossfadeSec: 0.12,
+  grade: "neutral",
+  bubbleStyle: "solid",
   overlayOnly: false,
 };

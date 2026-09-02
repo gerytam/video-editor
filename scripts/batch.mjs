@@ -65,24 +65,23 @@ for (const [i, job] of jobs.entries()) {
   try {
     const composition = job.composition ?? "Reel";
 
-    // `video` and `script` are paths relative to the repo root.
-    // The video must live under public/ so Remotion can serve it.
-    const videoPath = job.video;
-    if (!existsSync(videoPath)) {
-      throw new Error(
-        `video not found: ${videoPath}${
-          videoPath?.includes("INSERT_FILENAME")
-            ? " (placeholder — assign the real b-roll clip first)"
-            : ""
-        }`,
-      );
-    }
-    if (!videoPath.startsWith("public/")) {
-      throw new Error(`video must be inside public/ (got ${videoPath})`);
-    }
-
-    // `src` is the path Remotion serves it from (relative to public/).
-    const staticSrc = videoPath.replace(/^public\//, "");
+    // The video (or each broll clip) must live under public/ so Remotion
+    // can serve it. `src` is the path Remotion serves it from.
+    const toStaticPath = (videoPath) => {
+      if (!existsSync(videoPath)) {
+        throw new Error(
+          `video not found: ${videoPath}${
+            videoPath?.includes("INSERT_FILENAME")
+              ? " (placeholder — assign the real b-roll clip first)"
+              : ""
+          }`,
+        );
+      }
+      if (!videoPath.startsWith("public/")) {
+        throw new Error(`video must be inside public/ (got ${videoPath})`);
+      }
+      return videoPath.replace(/^public\//, "");
+    };
 
     let props;
     if (composition === "BrollReel") {
@@ -90,14 +89,29 @@ for (const [i, job] of jobs.entries()) {
       if (!Array.isArray(job.beats) || job.beats.length === 0) {
         throw new Error("BrollReel job needs a non-empty `beats` array");
       }
+      if (!Array.isArray(job.broll) || job.broll.length === 0) {
+        throw new Error(
+          "BrollReel job needs a non-empty `broll` array (one or more trimmed clips)",
+        );
+      }
       props = {
-        src: staticSrc,
+        broll: job.broll.map((clip) => ({
+          src: toStaticPath(clip.video),
+          startFromSec: clip.startFromSec ?? 0,
+          durationSec: clip.durationSec,
+        })),
         clientId: job.clientId,
         beats: job.beats,
         crossfadeSec: job.crossfadeSec ?? 0.12,
+        grade: job.grade ?? "neutral",
+        bubbleStyle: job.bubbleStyle ?? "solid",
         overlayOnly,
       };
     } else {
+      // `video` and `script` are paths relative to the repo root.
+      const videoPath = job.video;
+      const staticSrc = toStaticPath(videoPath);
+
       // 1. Captions — reuse if already generated.
       const captionsPath = videoPath.replace(
         /\.(mp4|mov|mkv|webm)$/i,
