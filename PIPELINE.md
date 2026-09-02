@@ -81,9 +81,12 @@ To force new captions, delete the `.json` next to the video.
 
 A second reel type, for footage with no speech to caption: timed text beats
 carry the message, the b-roll is ambient support underneath. Baloo 2
-typography, accent-phrase highlighting, and safe zones for Instagram's own
-UI (the handle/caption bar at the bottom, the like/comment/share column on
-the right) — see the style guide baked into `src/BrollReel/beats.ts`.
+typography, centered stacked text (a plain line, then an accent-colored line
+at the accent phrase), and safe zones for Instagram's own UI (the
+handle/caption bar at the bottom, the like/comment/share column on the
+right) — see `src/BrollReel/beats.ts`. The b-roll's own on-camera audio is
+always muted; add music in post (Resolve, or Instagram's own picker after
+upload).
 
 **1. Put the b-roll in `public/jobs/`**, same as any other job — no script
 file needed, since there's no speech to align.
@@ -106,10 +109,15 @@ file needed, since there's no speech to align.
 }
 ```
 
-`accentPhrase` must be an exact substring of `text` — that substring renders
-in the client's brand color, the rest in the style guide's primary color.
-Duration is driven by the beats (last beat's `startSec + holdSec`), not the
-clip — trim or loop the b-roll to match, or redistribute the hold times.
+`accentPhrase` must be an exact substring of `text`, and (per the content
+plan) sits at the end of the sentence — the beat renders as two stacked
+lines, split at that point: plain text, then the accent phrase in the
+client's brand color. A beat can also carry `"icon"`, one of the names in
+`src/BrollReel/Icons.tsx` (`phone`, `camera`, `car`, ...) — only for the rare
+beat with an obvious concrete noun; leave it off otherwise; most beats in
+this content plan don't have one. Duration is driven by the beats (last
+beat's `startSec + holdSec`), not the clip — trim or loop the b-roll to
+match, or redistribute the hold times.
 
 **3. Render:** `npm run batch` picks the composition per job automatically
 (`--overlay` works here too, for the Resolve hybrid workflow).

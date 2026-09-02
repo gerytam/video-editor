@@ -18,6 +18,9 @@ export const textBeatSchema = z.object({
   accentPhrase: z.string().nullable().optional(),
   startSec: z.number(),
   holdSec: z.number(),
+  /** Icon name from Icons.tsx — only for beats with an obvious concrete
+   *  noun. An unrecognized name is silently skipped, not an error. */
+  icon: z.string().nullable().optional(),
 });
 
 export const brollReelSchema = z.object({
@@ -93,8 +96,11 @@ export const BrollReel: React.FC<BrollReelProps> = ({
       {overlayOnly ? null : (
         <>
           <AbsoluteFill>
+            {/* Muted — this is a silent visual bed. Music goes on top in
+                post; the b-roll's own on-camera audio never ships. */}
             <OffthreadVideo
               src={videoSrc}
+              muted
               style={{ objectFit: "cover", width: "100%", height: "100%" }}
             />
           </AbsoluteFill>
@@ -120,6 +126,7 @@ export const BrollReel: React.FC<BrollReelProps> = ({
               beat={beat}
               primaryColor={TEXT_PRIMARY}
               accentColor={client.brandColor}
+              onAccentColor={client.onBrandColor}
               crossfadeSec={crossfadeSec}
               isFirst={i === 0}
               isLast={i === beats.length - 1}
