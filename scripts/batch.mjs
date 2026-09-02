@@ -1,9 +1,12 @@
 // Batch-render reels from a job manifest.
 //
-// For each job it:
-//   1. aligns the script to the video's real speech timing -> captions JSON
-//      (skipped if the JSON already exists, so reruns are cheap)
-//   2. renders the branded reel to out/<id>.mp4
+// Two job shapes, picked by `composition` (default "Reel"):
+//   - "Reel": talking-head captions aligned to speech. For each job:
+//       1. aligns the script to the video's real speech timing -> captions JSON
+//          (skipped if the JSON already exists, so reruns are cheap)
+//       2. renders the branded reel to out/<id>.mp4
+//   - "BrollReel": pre-timed text beats over ambient b-roll, no speech to
+//     align — renders straight from the job's `beats` array.
 //
 // Usage:
 //   node scripts/batch.mjs                 # renders every job in jobs/jobs.json
@@ -11,7 +14,8 @@
 //   node scripts/batch.mjs --overlay       # alpha-channel graphics only (for Resolve)
 //   node scripts/batch.mjs --manifest=jobs/other.json
 //
-// Job manifest format: see jobs/jobs.example.json
+// Job manifest format: see jobs/jobs.example.json and
+// jobs/philip-runs-ads-broll.example.json
 
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, mkdirSync } from "node:fs";
@@ -59,37 +63,64 @@ for (const [i, job] of jobs.entries()) {
   console.log(`\n=== ${label} ===`);
 
   try {
+    const composition = job.composition ?? "Reel";
+
     // `video` and `script` are paths relative to the repo root.
     // The video must live under public/ so Remotion can serve it.
     const videoPath = job.video;
     if (!existsSync(videoPath)) {
-      throw new Error(`video not found: ${videoPath}`);
+      throw new Error(
+        `video not found: ${videoPath}${
+          videoPath?.includes("INSERT_FILENAME")
+            ? " (placeholder — assign the real b-roll clip first)"
+            : ""
+        }`,
+      );
     }
     if (!videoPath.startsWith("public/")) {
       throw new Error(`video must be inside public/ (got ${videoPath})`);
     }
 
-    // 1. Captions — reuse if already generated.
-    const captionsPath = videoPath.replace(/\.(mp4|mov|mkv|webm)$/i, ".json");
-    if (existsSync(captionsPath)) {
-      console.log(`captions: reusing ${captionsPath}`);
-    } else if (job.script && existsSync(job.script)) {
-      console.log(`captions: aligning ${job.script}`);
-      run("node", ["scripts/align-captions.mjs", videoPath, job.script]);
-    } else {
-      console.log("captions: no script given, rendering without captions");
-    }
-
-    // 2. Render. `src` is the path Remotion serves it from (relative to public/).
+    // `src` is the path Remotion serves it from (relative to public/).
     const staticSrc = videoPath.replace(/^public\//, "");
-    const props = {
-      src: staticSrc,
-      clientId: job.clientId,
-      hook: job.hook ?? "",
-      keyword: job.keyword ?? "",
-      ctaCondition: job.ctaCondition ?? "",
-      overlayOnly,
-    };
+
+    let props;
+    if (composition === "BrollReel") {
+      // No speech to align — text beats are pre-timed in the manifest.
+      if (!Array.isArray(job.beats) || job.beats.length === 0) {
+        throw new Error("BrollReel job needs a non-empty `beats` array");
+      }
+      props = {
+        src: staticSrc,
+        clientId: job.clientId,
+        beats: job.beats,
+        crossfadeSec: job.crossfadeSec ?? 0.12,
+        overlayOnly,
+      };
+    } else {
+      // 1. Captions — reuse if already generated.
+      const captionsPath = videoPath.replace(
+        /\.(mp4|mov|mkv|webm)$/i,
+        ".json",
+      );
+      if (existsSync(captionsPath)) {
+        console.log(`captions: reusing ${captionsPath}`);
+      } else if (job.script && existsSync(job.script)) {
+        console.log(`captions: aligning ${job.script}`);
+        run("node", ["scripts/align-captions.mjs", videoPath, job.script]);
+      } else {
+        console.log("captions: no script given, rendering without captions");
+      }
+
+      props = {
+        src: staticSrc,
+        clientId: job.clientId,
+        hook: job.hook ?? "",
+        keyword: job.keyword ?? "",
+        ctaCondition: job.ctaCondition ?? "",
+        overlayOnly,
+      };
+    }
 
     const outFile = path.join(
       "out",
@@ -99,7 +130,7 @@ for (const [i, job] of jobs.entries()) {
     const renderArgs = [
       "remotion",
       "render",
-      "Reel",
+      composition,
       outFile,
       `--props=${JSON.stringify(props)}`,
     ];

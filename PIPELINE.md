@@ -77,6 +77,55 @@ npm run batch acme-01            # just one
 Captions are generated on first run and reused after, so re-renders are fast.
 To force new captions, delete the `.json` next to the video.
 
+## B-roll text-overlay reels
+
+A second reel type, for footage with no speech to caption: timed text beats
+carry the message, the b-roll is ambient support underneath. Baloo 2
+typography, accent-phrase highlighting, and safe zones for Instagram's own
+UI (the handle/caption bar at the bottom, the like/comment/share column on
+the right) — see the style guide baked into `src/BrollReel/beats.ts`.
+
+**1. Put the b-roll in `public/jobs/`**, same as any other job — no script
+file needed, since there's no speech to align.
+
+**2. Write beats into the job manifest** (copy
+`jobs/philip-runs-ads-broll.example.json`):
+
+```json
+{
+  "id": "reel_16_myth_truth_1",
+  "composition": "BrollReel",
+  "clientId": "philiprunsads",
+  "video": "public/jobs/reel_16_myth_truth_1.mp4",
+  "beats": [
+    { "text": "It's not the economy.", "accentPhrase": null, "startSec": 0, "holdSec": 1.62 },
+    { "text": "It's that nobody in Coastal Delaware knows who you are yet.",
+      "accentPhrase": "nobody in Coastal Delaware knows who you are yet",
+      "startSec": 3.24, "holdSec": 3.0 }
+  ]
+}
+```
+
+`accentPhrase` must be an exact substring of `text` — that substring renders
+in the client's brand color, the rest in the style guide's primary color.
+Duration is driven by the beats (last beat's `startSec + holdSec`), not the
+clip — trim or loop the b-roll to match, or redistribute the hold times.
+
+**3. Render:** `npm run batch` picks the composition per job automatically
+(`--overlay` works here too, for the Resolve hybrid workflow).
+
+The 15-reel Philip Runs Ads batch is in
+`jobs/philip-runs-ads-broll.example.json`, converted straight from the
+content plan. Each job's `video` is a placeholder path
+(`public/jobs/<reel_id>.mp4`) — drop the matching clip in before rendering.
+`caption`/`hashtags` ride along in the manifest for the post itself; the
+renderer ignores them.
+
+Client identity tag (small circular photo + `@handle`, top-left, persistent)
+comes from `client.avatar` in `src/config/clients.ts` — add the photo to
+`public/avatars/` and set the field; until then it falls back to an initial
+badge so renders never break for a missing asset.
+
 ## Resolve integration (the hybrid)
 
 Render **just the graphics** with a transparent background, then drop it onto
@@ -97,6 +146,8 @@ every time, generated from the script you already wrote.
 | Caption size, outline, pop | `src/Reel/CaptionPage.tsx` |
 | Hook overlay timing/size | `src/Reel/HookOverlay.tsx` |
 | CTA card, when it appears | `src/Reel/KeywordCTA.tsx` (`CTA_LEAD_SECONDS`) |
+| B-roll safe zones, font size, colors | `src/BrollReel/beats.ts` |
+| B-roll beat pop/crossfade timing | `src/BrollReel/TextBeatCard.tsx` |
 
 Preview interactively with `npm run dev` — pick the **Reel** composition and
 edit props in the sidebar.

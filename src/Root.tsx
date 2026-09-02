@@ -1,6 +1,12 @@
 import "./index.css";
 import { Composition, staticFile } from "remotion";
 import {
+  BrollReel,
+  calculateBrollReelMetadata,
+  defaultBrollReelProps,
+  brollReelSchema,
+} from "./BrollReel";
+import {
   CaptionedVideo,
   calculateCaptionedVideoMetadata,
   captionedVideoSchema,
@@ -46,6 +52,18 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
         defaultProps={defaultReelProps}
+      />
+
+      {/* B-roll text-overlay reel: timed text beats over ambient footage,
+          no speech to caption. Duration comes from the beats, not the clip. */}
+      <Composition
+        id="BrollReel"
+        component={BrollReel}
+        calculateMetadata={calculateBrollReelMetadata}
+        schema={brollReelSchema}
+        width={1080}
+        height={1920}
+        defaultProps={defaultBrollReelProps}
       />
 
       {/* The one-off 9-step playbook edit. */}
