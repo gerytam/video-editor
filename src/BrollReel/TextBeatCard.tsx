@@ -13,12 +13,15 @@ import {
   SAFE_ZONE,
   splitBeatText,
   TextBeat,
+  tiltForIndex,
 } from "./beats";
 
-// One text beat: centered, stacked (primary line, then an accent-colored
-// second line at the accent phrase), snappy pop-in/out timed to the cut.
+// One text beat: a bounce-in bubble stack (a neutral line, then an
+// accent-colored line at the accent phrase), tilted a couple degrees off
+// square so it reads as designed rather than a plain caption track.
 export const TextBeatCard: React.FC<{
   readonly beat: TextBeat;
+  readonly index: number;
   readonly primaryColor: string;
   readonly accentColor: string;
   readonly onAccentColor: string;
@@ -28,6 +31,7 @@ export const TextBeatCard: React.FC<{
   readonly isLast: boolean;
 }> = ({
   beat,
+  index,
   primaryColor,
   accentColor,
   onAccentColor,
@@ -42,15 +46,17 @@ export const TextBeatCard: React.FC<{
   const local = t - beat.startSec;
   // First/last beat get a fuller pop rather than a half-crossfade against
   // nothing.
-  const fadeIn = isFirst ? 0.22 : crossfadeSec;
-  const fadeOut = isLast ? 0.18 : crossfadeSec;
+  const fadeIn = isFirst ? 0.32 : Math.max(crossfadeSec, 0.2);
+  const fadeOut = isLast ? 0.22 : Math.max(crossfadeSec * 0.8, 0.16);
 
   if (local < -fadeIn || local > beat.holdSec + fadeOut) return null;
 
-  const inP = spring({
+  // Underdamped on purpose: the spring overshoots past 1 and settles back,
+  // which is what actually reads as a "bounce" instead of a fade.
+  const pop = spring({
     frame: Math.round(local * fps),
     fps,
-    config: { damping: 14, mass: 0.4, stiffness: 220 },
+    config: { damping: 10, mass: 0.5, stiffness: 240 },
     durationInFrames: Math.max(1, Math.round(fadeIn * fps)),
   });
   const outP = interpolate(
@@ -60,11 +66,19 @@ export const TextBeatCard: React.FC<{
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
-  const opacity = Math.min(inP, 1 - outP);
-  const scale =
-    interpolate(inP, [0, 1], [0.82, 1]) * interpolate(outP, [0, 1], [1, 0.93]);
+  const opacity = Math.min(1, pop) * (1 - outP);
+  const scale = interpolate(pop, [0, 1], [0.4, 1], {
+    extrapolateRight: "extend",
+  }) * interpolate(outP, [0, 1], [1, 0.85]);
   const y =
-    interpolate(inP, [0, 1], [26, 0]) + interpolate(outP, [0, 1], [0, -16]);
+    interpolate(pop, [0, 1], [50, 0], { extrapolateRight: "extend" }) +
+    interpolate(outP, [0, 1], [0, -22]);
+
+  const tilt = tiltForIndex(index);
+  const rotateIn = tilt + (index % 2 === 0 ? 9 : -9);
+  const rotate = interpolate(pop, [0, 1], [rotateIn, tilt], {
+    extrapolateRight: "extend",
+  });
 
   const { primary, secondary } = splitBeatText(beat.text, beat.accentPhrase);
   const fontSize = fontSizeForBeat(beat.text);
@@ -87,7 +101,7 @@ export const TextBeatCard: React.FC<{
       <div
         style={{
           opacity,
-          transform: `translateY(${y}px) scale(${scale})`,
+          transform: `translateY(${y}px) scale(${scale}) rotate(${rotate}deg)`,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -110,7 +124,12 @@ export const TextBeatCard: React.FC<{
               color: primaryColor,
               textAlign: "center",
               textTransform: "uppercase",
-              filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.5))",
+              background: "rgba(10,14,12,0.62)",
+              border: "3px solid rgba(255,255,255,0.16)",
+              borderRadius: 22,
+              padding: "6px 24px",
+              marginBottom: secondary ? 10 : 0,
+              boxShadow: "0 10px 24px rgba(0,0,0,0.4)",
             }}
           >
             {primary}
@@ -123,10 +142,14 @@ export const TextBeatCard: React.FC<{
               fontFamily: Baloo2ExtraBold,
               fontSize,
               lineHeight: LINE_HEIGHT,
-              color: accentColor,
+              color: onAccentColor,
               textAlign: "center",
               textTransform: "uppercase",
-              filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.5))",
+              background: accentColor,
+              border: "3px solid rgba(0,0,0,0.28)",
+              borderRadius: 22,
+              padding: "6px 24px",
+              boxShadow: "0 10px 24px rgba(0,0,0,0.4)",
             }}
           >
             {secondary}

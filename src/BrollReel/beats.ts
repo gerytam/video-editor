@@ -67,3 +67,8 @@ export const estimateHoldSec = (text: string): number => {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
   return Math.min(3.0, Math.max(1.2, words * 0.28));
 };
+
+// A small, consistent hand-made tilt per beat (alternating left/right) so
+// the text bubbles don't sit dead-straight like a caption track. Small on
+// purpose — a few degrees reads as "designed," ten degrees reads as broken.
+export const tiltForIndex = (i: number): number => (i % 2 === 0 ? -2.5 : 2.5);

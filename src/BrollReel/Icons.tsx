@@ -78,6 +78,23 @@ export const ICONS = {
       <path d="M21 16l-5.5-5.5L9 17" />
     </svg>
   ),
+  pin: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...stroke} {...props}>
+      <path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z" />
+      <circle cx="12" cy="10" r="2.3" />
+    </svg>
+  ),
+  clock: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...stroke} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3.5 2" />
+    </svg>
+  ),
+  spark: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...stroke} {...props}>
+      <path d="M12 2v6M12 16v6M2 12h6M16 12h6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M19.1 4.9l-4.2 4.2M9.1 14.9l-4.2 4.2" />
+    </svg>
+  ),
 } as const;
 
 export type IconName = keyof typeof ICONS;

@@ -10,19 +10,22 @@
         "text": "It's not the economy.",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 1.62
+        "holdSec": 1.62,
+        "icon": "chart"
       },
       {
         "text": "It's not the season.",
         "accentPhrase": null,
         "startSec": 1.62,
-        "holdSec": 1.62
+        "holdSec": 1.62,
+        "icon": "calendar"
       },
       {
         "text": "It's that nobody in Coastal Delaware knows who you are yet.",
         "accentPhrase": "nobody in Coastal Delaware knows who you are yet",
         "startSec": 3.24,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "pin"
       }
     ],
     "caption": "Slow isn't a season problem. It's a nobody-knows-you problem.",

@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   AbsoluteFill,
+  Audio,
   CalculateMetadataFunction,
   OffthreadVideo,
+  Sequence,
   staticFile,
   useDelayRender,
+  useVideoConfig,
 } from "remotion";
 import { z } from "zod";
 import { getClient } from "../config/clients";
 import { TEXT_PRIMARY } from "./beats";
+import { CutFlash } from "./CutFlash";
 import { loadBaloo2 } from "./font";
 import { IdentityTag } from "./IdentityTag";
 import { TextBeatCard } from "./TextBeatCard";
@@ -74,6 +78,7 @@ export const BrollReel: React.FC<BrollReelProps> = ({
   overlayOnly,
 }) => {
   const client = getClient(clientId);
+  const { fps } = useVideoConfig();
   const { delayRender, continueRender } = useDelayRender();
   const [handle] = useState(() => delayRender("Loading Baloo 2"));
   const [fontReady, setFontReady] = useState(false);
@@ -120,18 +125,35 @@ export const BrollReel: React.FC<BrollReelProps> = ({
         <>
           <IdentityTag handle={client.handle} avatar={client.avatar} />
 
-          {beats.map((beat, i) => (
-            <TextBeatCard
-              key={i}
-              beat={beat}
-              primaryColor={TEXT_PRIMARY}
-              accentColor={client.brandColor}
-              onAccentColor={client.onBrandColor}
-              crossfadeSec={crossfadeSec}
-              isFirst={i === 0}
-              isLast={i === beats.length - 1}
-            />
-          ))}
+          {beats.map((beat, i) => {
+            // A distinct little "ping" for icon beats vs. plain text beats,
+            // so the audio tracks the visual variety instead of repeating
+            // the same sound on every cut.
+            const sfx = beat.icon ? "sfx/whoosh.wav" : "sfx/pop.wav";
+            const sfxFrames = beat.icon ? 8 : 6;
+            return (
+              <Fragment key={i}>
+                <TextBeatCard
+                  beat={beat}
+                  index={i}
+                  primaryColor={TEXT_PRIMARY}
+                  accentColor={client.brandColor}
+                  onAccentColor={client.onBrandColor}
+                  crossfadeSec={crossfadeSec}
+                  isFirst={i === 0}
+                  isLast={i === beats.length - 1}
+                />
+                <Sequence
+                  from={Math.round(beat.startSec * fps)}
+                  durationInFrames={sfxFrames}
+                >
+                  <Audio src={staticFile(sfx)} volume={0.55} />
+                </Sequence>
+              </Fragment>
+            );
+          })}
+
+          <CutFlash starts={beats.map((b) => b.startSec)} />
         </>
       ) : null}
     </AbsoluteFill>
@@ -142,13 +164,14 @@ export const defaultBrollReelProps: BrollReelProps = {
   src: staticFile("sample-video.mp4"),
   clientId: "philiprunsads",
   beats: [
-    { text: "It's not the economy.", accentPhrase: null, startSec: 0, holdSec: 1.62 },
-    { text: "It's not the season.", accentPhrase: null, startSec: 1.62, holdSec: 1.62 },
+    { text: "It's not the economy.", accentPhrase: null, startSec: 0, holdSec: 1.62, icon: "chart" },
+    { text: "It's not the season.", accentPhrase: null, startSec: 1.62, holdSec: 1.62, icon: "calendar" },
     {
       text: "It's that nobody in Coastal Delaware knows who you are yet.",
       accentPhrase: "nobody in Coastal Delaware knows who you are yet",
       startSec: 3.24,
       holdSec: 3.0,
+      icon: "pin",
     },
   ],
   crossfadeSec: 0.12,
