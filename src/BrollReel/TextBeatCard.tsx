@@ -12,6 +12,7 @@ import {
   LINE_HEIGHT,
   SAFE_ZONE,
   splitBeatText,
+  TEXT_BLOCK_BOTTOM,
   TextBeat,
   tiltForIndex,
 } from "./beats";
@@ -89,11 +90,11 @@ export const TextBeatCard: React.FC<{
         position: "absolute",
         left: SAFE_ZONE.leftMargin,
         right: SAFE_ZONE.rightReserved,
-        bottom: SAFE_ZONE.bottomReserved,
+        bottom: TEXT_BLOCK_BOTTOM,
         top: SAFE_ZONE.topMargin + 160,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-end",
+        justifyContent: "center",
         alignItems: "center",
         pointerEvents: "none",
       }}

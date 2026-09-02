@@ -47,6 +47,13 @@ export const SAFE_ZONE = {
   topMargin: 100,
 };
 
+// Instagram's own bottom UI (handle/caption/audio ticker) grows taller than
+// SAFE_ZONE.bottomReserved once the post's caption wraps to 2-3 lines, and a
+// text block glued to the bottom edge is the first thing that gets covered.
+// The beat text sits mid-screen instead — clear of both the bottom UI and
+// the identity tag up top, and reads better centered anyway.
+export const TEXT_BLOCK_BOTTOM = SAFE_ZONE.bottomReserved + 260;
+
 // Font size sized to fit the safe-area width; longer lines wrap to more
 // lines rather than shrinking further, so the floor is 64, not smaller.
 export const fontSizeForBeat = (text: string): number => {
