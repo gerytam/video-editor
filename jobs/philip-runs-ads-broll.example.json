@@ -4,7 +4,11 @@
     "composition": "BrollReel",
     "clientId": "philiprunsads",
     "broll": [
-      { "video": "public/jobs/reel_16_myth_truth_1.mov", "startFromSec": 0, "durationSec": 6.24 }
+      {
+        "video": "public/jobs/reel_16_myth_truth_1.mov",
+        "startFromSec": 0,
+        "durationSec": 6.24
+      }
     ],
     "grade": "neutral",
     "bubbleStyle": "solid",
@@ -46,9 +50,21 @@
     "composition": "BrollReel",
     "clientId": "philiprunsads",
     "broll": [
-      { "video": "public/jobs/reel_17_myth_truth_2.mov", "startFromSec": 8.0, "durationSec": 1.9 },
-      { "video": "public/jobs/reel_17_myth_truth_2.mov", "startFromSec": 32.0, "durationSec": 1.62 },
-      { "video": "public/jobs/reel_17_myth_truth_2.mov", "startFromSec": 38.0, "durationSec": 3.0 }
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 8,
+        "durationSec": 1.9
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 32,
+        "durationSec": 1.62
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 38,
+        "durationSec": 3
+      }
     ],
     "grade": "moody",
     "bubbleStyle": "outline",
@@ -88,26 +104,28 @@
     "id": "reel_18_pov_1",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_18_pov_1.mp4",
     "broll_hint": "boardwalk or street",
     "beats": [
       {
         "text": "POV: a homeowner just moved to Coastal Delaware.",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 2.74
+        "holdSec": 2.74,
+        "icon": "pin"
       },
       {
         "text": "No referrals. No history. Just their phone.",
         "accentPhrase": null,
         "startSec": 2.74,
-        "holdSec": 2.46
+        "holdSec": 2.46,
+        "icon": "phone"
       },
       {
         "text": "Whoever shows up first gets the call.",
         "accentPhrase": "shows up first gets the call",
         "startSec": 5.2,
-        "holdSec": 2.46
+        "holdSec": 2.46,
+        "icon": "megaphone"
       }
     ],
     "caption": "Not the most qualified. The most recognized. That's who gets the call.",
@@ -117,32 +135,58 @@
       "#ServiceBusinessGrowth",
       "#LocalMarketing",
       "#RehobothBeach"
+    ],
+    "grade": "warm",
+    "bubbleStyle": "solid",
+    "broll": [
+      {
+        "video": "public/jobs/reel_16_myth_truth_1.mov",
+        "startFromSec": 0,
+        "durationSec": 2.74
+      },
+      {
+        "video": "public/jobs/reel_16_myth_truth_1.mov",
+        "startFromSec": 2.74,
+        "durationSec": 2.46
+      },
+      {
+        "video": "public/jobs/reel_16_myth_truth_1.mov",
+        "startFromSec": 5.2,
+        "durationSec": 2.32
+      },
+      {
+        "video": "public/jobs/reel_16_myth_truth_1.mov",
+        "startFromSec": 0,
+        "durationSec": 0.14
+      }
     ]
   },
   {
     "id": "reel_19_pov_2",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_19_pov_2.mp4",
     "broll_hint": "driving",
     "beats": [
       {
         "text": "POV: you're the best contractor in town.",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 2.46
+        "holdSec": 2.46,
+        "icon": "spark"
       },
       {
         "text": "And still losing jobs to someone worse than you.",
         "accentPhrase": null,
         "startSec": 2.46,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "chart"
       },
       {
         "text": "Because people can't hire someone they've never heard of.",
         "accentPhrase": "never heard of",
         "startSec": 5.46,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "phone"
       }
     ],
     "caption": "Price shopping isn't a pricing problem. It's a recognition problem.",
@@ -152,32 +196,53 @@
       "#ServiceBusinessGrowth",
       "#LocalAuthority",
       "#PriceShopping"
+    ],
+    "grade": "cool",
+    "bubbleStyle": "outline",
+    "broll": [
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 0.3,
+        "durationSec": 2.46
+      },
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 2.76,
+        "durationSec": 3
+      },
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 5.76,
+        "durationSec": 3
+      }
     ]
   },
   {
     "id": "reel_20_breaking_1",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_20_breaking_1.mp4",
     "broll_hint": "studio",
     "beats": [
       {
         "text": "BREAKING:",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 1.2
+        "holdSec": 1.2,
+        "icon": "megaphone"
       },
       {
         "text": "Referrals aren't a strategy.",
         "accentPhrase": null,
         "startSec": 1.2,
-        "holdSec": 1.62
+        "holdSec": 1.62,
+        "icon": "chart"
       },
       {
         "text": "They're a lucky accident you can't scale.",
         "accentPhrase": "lucky accident you can't scale",
         "startSec": 2.82,
-        "holdSec": 2.46
+        "holdSec": 2.46,
+        "icon": "spark"
       }
     ],
     "caption": "Great when it happens. Bad plan when it's the whole plan.",
@@ -187,32 +252,53 @@
       "#ReferralMarketing",
       "#ServiceBusinessGrowth",
       "#BusinessGrowth"
+    ],
+    "grade": "neutral",
+    "bubbleStyle": "solid",
+    "broll": [
+      {
+        "video": "public/jobs/broll-studio-suit.mov",
+        "startFromSec": 0.3,
+        "durationSec": 1.2
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 0,
+        "durationSec": 1.62
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 1.62,
+        "durationSec": 2.46
+      }
     ]
   },
   {
     "id": "reel_21_breaking_2",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_21_breaking_2.mp4",
     "broll_hint": "driving or walking",
     "beats": [
       {
         "text": "BREAKING:",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 1.2
+        "holdSec": 1.2,
+        "icon": "megaphone"
       },
       {
         "text": "Your competitors are stopping for December.",
         "accentPhrase": null,
         "startSec": 1.2,
-        "holdSec": 2.18
+        "holdSec": 2.18,
+        "icon": "calendar"
       },
       {
         "text": "Buyers don't stop buying. They just stop showing up.",
         "accentPhrase": "They just stop showing up",
         "startSec": 3.38,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "signpost"
       }
     ],
     "caption": "The name people remember in a slow month is usually the one who didn't disappear during it.",
@@ -222,38 +308,60 @@
       "#LocalMarketing",
       "#StayVisible",
       "#BusinessGrowth"
+    ],
+    "grade": "cool",
+    "bubbleStyle": "solid",
+    "broll": [
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 0,
+        "durationSec": 1.2
+      },
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 1.2,
+        "durationSec": 2.18
+      },
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 3.38,
+        "durationSec": 3
+      }
     ]
   },
   {
     "id": "reel_22_beforeafter_1",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_22_beforeafter_1.mp4",
     "broll_hint": "office or desk",
     "beats": [
       {
         "text": "Contractor client before:",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 1.34
+        "holdSec": 1.34,
+        "icon": "clock"
       },
       {
         "text": "Praying the phone rang.",
         "accentPhrase": null,
         "startSec": 1.34,
-        "holdSec": 1.62
+        "holdSec": 1.62,
+        "icon": "phone"
       },
       {
         "text": "Contractor client now:",
         "accentPhrase": null,
         "startSec": 2.96,
-        "holdSec": 1.34
+        "holdSec": 1.34,
+        "icon": "spark"
       },
       {
         "text": "Weekly calls from new homeowners, all from Instagram.",
         "accentPhrase": "all from Instagram",
         "startSec": 4.3,
-        "holdSec": 2.74
+        "holdSec": 2.74,
+        "icon": "camera"
       }
     ],
     "caption": "It's already working. Two clients, same pattern.",
@@ -263,38 +371,65 @@
       "#ServiceBusinessGrowth",
       "#LocalAuthority",
       "#InstagramMarketing"
+    ],
+    "grade": "warm",
+    "bubbleStyle": "outline",
+    "broll": [
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 4.08,
+        "durationSec": 1.34
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 5.42,
+        "durationSec": 1.62
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 7.04,
+        "durationSec": 1.34
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 10,
+        "durationSec": 2.74
+      }
     ]
   },
   {
     "id": "reel_23_beforeafter_2",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_23_beforeafter_2.mp4",
     "broll_hint": "studio",
     "beats": [
       {
         "text": "Doctor client before:",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 1.34
+        "holdSec": 1.34,
+        "icon": "clock"
       },
       {
         "text": "Zero relationships with new residents.",
         "accentPhrase": null,
         "startSec": 1.34,
-        "holdSec": 1.9
+        "holdSec": 1.9,
+        "icon": "pin"
       },
       {
         "text": "Doctor client now:",
         "accentPhrase": null,
         "startSec": 3.24,
-        "holdSec": 1.34
+        "holdSec": 1.34,
+        "icon": "spark"
       },
       {
         "text": "Built a loyal base from relocators who never had a single connection here.",
         "accentPhrase": "never had a single connection here",
         "startSec": 4.58,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "chart"
       }
     ],
     "caption": "It's already working. Two clients, same pattern.",
@@ -304,44 +439,72 @@
       "#ServiceBusinessGrowth",
       "#LocalAuthority",
       "#InstagramMarketing"
+    ],
+    "grade": "moody",
+    "bubbleStyle": "solid",
+    "broll": [
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 12.74,
+        "durationSec": 1.34
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 14.08,
+        "durationSec": 1.9
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 15.98,
+        "durationSec": 1.34
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 17.32,
+        "durationSec": 3
+      }
     ]
   },
   {
     "id": "reel_24_framework",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_24_framework.mp4",
     "broll_hint": "desk or mic setup",
     "beats": [
       {
         "text": "3 things to do if you're running ads:",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 2.74
+        "holdSec": 2.74,
+        "icon": "megaphone"
       },
       {
         "text": "1. Post your story every day.",
         "accentPhrase": null,
         "startSec": 2.74,
-        "holdSec": 2.18
+        "holdSec": 2.18,
+        "icon": "camera"
       },
       {
         "text": "2. DM everyone who enters your ecosystem.",
         "accentPhrase": null,
         "startSec": 4.92,
-        "holdSec": 2.46
+        "holdSec": 2.46,
+        "icon": "phone"
       },
       {
         "text": "3. Post content constantly.",
         "accentPhrase": null,
         "startSec": 7.38,
-        "holdSec": 1.62
+        "holdSec": 1.62,
+        "icon": "photo"
       },
       {
         "text": "Do those and you convert more leads.",
         "accentPhrase": "convert more leads",
         "startSec": 9,
-        "holdSec": 2.46
+        "holdSec": 2.46,
+        "icon": "chart"
       }
     ],
     "caption": "Three non-negotiables if you're running ads. Save this one.",
@@ -351,32 +514,63 @@
       "#ServiceBusinessGrowth",
       "#InstagramAds",
       "#DelawareBusiness"
+    ],
+    "grade": "neutral",
+    "bubbleStyle": "outline",
+    "broll": [
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 20.32,
+        "durationSec": 2.74
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 23.06,
+        "durationSec": 2.18
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 25.24,
+        "durationSec": 2.46
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 27.7,
+        "durationSec": 1.62
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 29.32,
+        "durationSec": 2.46
+      }
     ]
   },
   {
     "id": "reel_25_callout_1",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_25_callout_1.mp4",
     "broll_hint": "boardwalk or local landmark",
     "beats": [
       {
         "text": "If you run a service business here in Coastal Delaware...",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "pin"
       },
       {
         "text": "...you could be the best at what you do and still lose the job.",
         "accentPhrase": "still lose the job",
         "startSec": 3,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "chart"
       },
       {
         "text": "Follow for why.",
         "accentPhrase": null,
         "startSec": 6,
-        "holdSec": 1.34
+        "holdSec": 1.34,
+        "icon": "spark"
       }
     ],
     "caption": "Being great at the work and being known for it are two different jobs. Most owners only clock into one of them.",
@@ -386,32 +580,53 @@
       "#LocalAuthority",
       "#DelawareBusiness",
       "#BusinessGrowth"
+    ],
+    "grade": "warm",
+    "bubbleStyle": "outline",
+    "broll": [
+      {
+        "video": "public/jobs/broll-bts-driveway.mov",
+        "startFromSec": 1,
+        "durationSec": 3
+      },
+      {
+        "video": "public/jobs/broll-bts-driveway.mov",
+        "startFromSec": 4,
+        "durationSec": 3
+      },
+      {
+        "video": "public/jobs/broll-bts-driveway.mov",
+        "startFromSec": 7,
+        "durationSec": 1.34
+      }
     ]
   },
   {
     "id": "reel_26_callout_2",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_26_callout_2.mp4",
     "broll_hint": "driving through town",
     "beats": [
       {
         "text": "Local service businesses:",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 1.34
+        "holdSec": 1.34,
+        "icon": "megaphone"
       },
       {
         "text": "This is how you win locally.",
         "accentPhrase": null,
         "startSec": 1.34,
-        "holdSec": 2.18
+        "holdSec": 2.18,
+        "icon": "spark"
       },
       {
         "text": "Visibility before authority. Authority before trust. Trust before the call.",
         "accentPhrase": "Trust before the call",
         "startSec": 3.52,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "phone"
       }
     ],
     "caption": "The order matters. Skip a step and the rest doesn't hold.",
@@ -421,32 +636,53 @@
       "#ServiceBusinessGrowth",
       "#LocalMarketing",
       "#BusinessGrowth"
+    ],
+    "grade": "cool",
+    "bubbleStyle": "solid",
+    "broll": [
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 0,
+        "durationSec": 1.34
+      },
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 1.34,
+        "durationSec": 2.18
+      },
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 3.52,
+        "durationSec": 3
+      }
     ]
   },
   {
     "id": "reel_27_contrarian_1",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_27_contrarian_1.mp4",
     "broll_hint": "studio or BTS",
     "beats": [
       {
         "text": "Stop hiring videographers.",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 1.34
+        "holdSec": 1.34,
+        "icon": "camera"
       },
       {
         "text": "Great video nobody sees is just an expensive memory.",
         "accentPhrase": null,
         "startSec": 1.34,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "photo"
       },
       {
         "text": "You don't need prettier content. You need a system.",
         "accentPhrase": "You need a system",
         "startSec": 4.34,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "chart"
       }
     ],
     "caption": "Pretty content nobody sees isn't marketing. It's an expensive memory. DM \"ADS\" if you want the system instead.",
@@ -456,32 +692,53 @@
       "#LocalMarketing",
       "#ServiceBusinessGrowth",
       "#MarketingSystem"
+    ],
+    "grade": "moody",
+    "bubbleStyle": "solid",
+    "broll": [
+      {
+        "video": "public/jobs/broll-bts-driveway.mov",
+        "startFromSec": 0,
+        "durationSec": 1.34
+      },
+      {
+        "video": "public/jobs/broll-bts-driveway.mov",
+        "startFromSec": 1.34,
+        "durationSec": 3
+      },
+      {
+        "video": "public/jobs/broll-bts-driveway.mov",
+        "startFromSec": 4.34,
+        "durationSec": 3
+      }
     ]
   },
   {
     "id": "reel_28_contrarian_2",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_28_contrarian_2.mp4",
     "broll_hint": "desk",
     "beats": [
       {
         "text": "Marketing agencies make everyone look the same.",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 2.46
+        "holdSec": 2.46,
+        "icon": "megaphone"
       },
       {
         "text": "Same graphics. Same hooks. Same promises.",
         "accentPhrase": null,
         "startSec": 2.46,
-        "holdSec": 2.18
+        "holdSec": 2.18,
+        "icon": "photo"
       },
       {
         "text": "Nobody chooses you because you're the same.",
         "accentPhrase": "because you're the same",
         "startSec": 4.64,
-        "holdSec": 2.46
+        "holdSec": 2.46,
+        "icon": "spark"
       }
     ],
     "caption": "If your content could be swapped with a competitor's and nobody would notice, that's not a design problem.",
@@ -491,38 +748,60 @@
       "#LocalMarketing",
       "#ServiceBusinessGrowth",
       "#StandOut"
+    ],
+    "grade": "warm",
+    "bubbleStyle": "solid",
+    "broll": [
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 31.78,
+        "durationSec": 2.46
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 34.24,
+        "durationSec": 2.18
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 36.42,
+        "durationSec": 2.46
+      }
     ]
   },
   {
     "id": "reel_29_metaphor_1",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_29_metaphor_1.mp4",
     "broll_hint": "driving",
     "beats": [
       {
         "text": "An ad to your website is a sign on the highway.",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "signpost"
       },
       {
         "text": "There's traffic. Nobody's slowing down.",
         "accentPhrase": null,
         "startSec": 3,
-        "holdSec": 1.9
+        "holdSec": 1.9,
+        "icon": "car"
       },
       {
         "text": "An ad to your profile is a seat in the car.",
         "accentPhrase": "a seat in the car",
         "startSec": 4.9,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "car"
       },
       {
         "text": "They see your face, your work, your story.",
         "accentPhrase": null,
         "startSec": 7.9,
-        "holdSec": 2.74
+        "holdSec": 2.74,
+        "icon": "photo"
       }
     ],
     "caption": "One gets glanced at. The other gets a conversation. Where's your ad spend actually pointing?",
@@ -532,44 +811,72 @@
       "#ServiceBusinessGrowth",
       "#InstagramAds",
       "#DelawareBusiness"
+    ],
+    "grade": "cool",
+    "bubbleStyle": "outline",
+    "broll": [
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 0,
+        "durationSec": 3
+      },
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 3,
+        "durationSec": 1.9
+      },
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 4.9,
+        "durationSec": 3
+      },
+      {
+        "video": "public/jobs/broll-driving-snow.mov",
+        "startFromSec": 7.9,
+        "durationSec": 2.74
+      }
     ]
   },
   {
     "id": "reel_30_metaphor_2",
     "composition": "BrollReel",
     "clientId": "philiprunsads",
-    "video": "public/jobs/reel_30_metaphor_2.mp4",
     "broll_hint": "studio and candid mix",
     "beats": [
       {
         "text": "Every video.",
         "accentPhrase": null,
         "startSec": 0,
-        "holdSec": 1.2
+        "holdSec": 1.2,
+        "icon": "camera"
       },
       {
         "text": "Every job photo.",
         "accentPhrase": null,
         "startSec": 1.2,
-        "holdSec": 1.34
+        "holdSec": 1.34,
+        "icon": "photo"
       },
       {
         "text": "Every ad.",
         "accentPhrase": null,
         "startSec": 2.54,
-        "holdSec": 1.2
+        "holdSec": 1.2,
+        "icon": "megaphone"
       },
       {
         "text": "It's a deposit in the trust account.",
         "accentPhrase": "a deposit in the trust account",
         "startSec": 3.74,
-        "holdSec": 2.46
+        "holdSec": 2.46,
+        "icon": "vault"
       },
       {
         "text": "One day they need you. They've already seen you everywhere.",
         "accentPhrase": null,
         "startSec": 6.2,
-        "holdSec": 3
+        "holdSec": 3,
+        "icon": "spark"
       }
     ],
     "caption": "Nobody opens an account and expects interest on day one. Same math applies here.",
@@ -579,6 +886,40 @@
       "#ServiceBusinessGrowth",
       "#DelawareBusiness",
       "#BusinessGrowth"
+    ],
+    "grade": "neutral",
+    "bubbleStyle": "outline",
+    "broll": [
+      {
+        "video": "public/jobs/broll-studio-suit.mov",
+        "startFromSec": 0.3,
+        "durationSec": 1.2
+      },
+      {
+        "video": "public/jobs/broll-pool-candid.mov",
+        "startFromSec": 0,
+        "durationSec": 1.34
+      },
+      {
+        "video": "public/jobs/broll-pool-candid.mov",
+        "startFromSec": 1.34,
+        "durationSec": 1.2
+      },
+      {
+        "video": "public/jobs/broll-pool-candid.mov",
+        "startFromSec": 2.54,
+        "durationSec": 2.23
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 38.88,
+        "durationSec": 0.23
+      },
+      {
+        "video": "public/jobs/reel_17_myth_truth_2.mov",
+        "startFromSec": 39.11,
+        "durationSec": 3
+      }
     ]
   }
 ]
