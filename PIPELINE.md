@@ -173,3 +173,30 @@ tweak in `npm run dev` under the **Walkthrough** composition.
 | Camera moves and strength | `src/Walkthrough/camera.ts` |
 | Line weight, glow, overshoot | `src/Walkthrough/Wireframe.tsx` |
 | How many lines, which ones | `MAX_LINES`, `min_len` in `scripts/walkthrough/prep.py` |
+
+## Real-estate photo edit
+
+Straight verticals and a bright listing-style grade for phone photos:
+
+```bash
+python3 scripts/realestate-edit.py work/<client>/raw --out work/<client>/edited \
+  --video-out work/<client>/edited-9x16 --compare
+```
+
+It reads each photo's focal length from EXIF, so iPhone 0.5x shots correct
+properly. Shots taken pointing down lose some ceiling after correction; that's
+the price of straight walls. The 9:16 crops keep more height than the 3:4
+stills. Dim evening shots get at most about +1.8 stops so they don't turn into
+fake HDR.
+
+## AI before → after transformations
+
+`jobs/<client>-transform.json` pairs a before photo with an edited after photo
+plus a prompt describing what changes. Build matched 9:16 start/end frames:
+
+```bash
+python3 scripts/transform/frames.py jobs/<client>-transform.json
+```
+
+Those frames go to a first/last-frame video model (Kling O1, Veo 3.1). The
+first and last frames stay the real photos; only the in-between is generated.

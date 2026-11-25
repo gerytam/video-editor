@@ -1,0 +1,37 @@
+{
+  "id": "turnkey-transform",
+  "clientId": "turnkey",
+  "beforeDir": "work/turnkey/raw",
+  "afterDir": "work/turnkey/edited-9x16",
+  "framesDir": "work/turnkey/transform",
+  "pairs": [
+    {
+      "id": "kitchen-wall",
+      "before": "IMG_1863.JPG",
+      "beforeCenterX": 0.6,
+      "after": "IMG_2047.jpg",
+      "prompt": "Renovation transformation of a kitchen. The honey-oak cabinets, beige tile backsplash and laminate counters are pulled out and replaced with white shaker cabinets, a brick-look backsplash and white quartz counters, while the camera slowly dollies back to reveal the new island. Photorealistic, bright natural interior light, smooth steady camera, no people, no text."
+    },
+    {
+      "id": "kitchen-wide",
+      "before": "IMG_1865.JPG",
+      "beforeCenterX": 0.5,
+      "after": "IMG_1847.jpg",
+      "prompt": "Renovation transformation of an open kitchen seen from the family room. The honey-oak cabinets and old island turn into white shaker cabinets and a large walnut-stained island with a white quartz top. Slow steady push-in. Photorealistic, bright natural light, no people, no text."
+    },
+    {
+      "id": "bath-tub",
+      "before": "IMG_1867.JPG",
+      "beforeCenterX": 0.55,
+      "after": "IMG_2048.jpg",
+      "prompt": "Renovation transformation of a bathroom. The beige tile tub surround, shower curtain and oak vanity are replaced with navy glazed subway tile, a sliding glass door with brass hardware, and a fluted white-oak vanity with brass knobs. Slow steady push toward the tub. Photorealistic, bright clean light, no people, no text."
+    },
+    {
+      "id": "bath-shower",
+      "before": "IMG_1866.JPG",
+      "beforeCenterX": 0.45,
+      "after": "IMG_2053.jpg",
+      "prompt": "Renovation transformation of a bathroom. The beige tile shower with framed glass door and oak vanity are replaced with a navy glazed tile walk-in shower behind frameless glass, a white vanity with brass pulls, and a brass-framed mirror. Slow steady camera drift. Photorealistic, bright clean light, no people, no text."
+    }
+  ]
+}
