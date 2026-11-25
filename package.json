@@ -6,6 +6,8 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "@fontsource/montserrat": "5.3.0",
     "@remotion/animation-utils": "4.0.506",
     "@remotion/cli": "4.0.506",
     "@remotion/layout-utils": "4.0.506",
@@ -36,7 +38,10 @@
     "lint": "eslint src && tsc",
     "create-subtitles": "node sub.mjs",
     "batch": "node scripts/batch.mjs",
-    "captions": "node scripts/align-captions.mjs"
+    "captions": "node scripts/align-captions.mjs",
+    "walkthrough": "node scripts/walkthrough/render.mjs",
+    "walkthrough:prep": "python3 scripts/walkthrough/prep.py",
+    "fetch-album": "python3 scripts/fetch-icloud-album.py"
   },
   "sideEffects": [
     "*.css"

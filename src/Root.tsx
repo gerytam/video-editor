@@ -12,6 +12,12 @@ import {
   proSchema,
 } from "./Pro";
 import {
+  Walkthrough,
+  calculateWalkthroughMetadata,
+  defaultWalkthroughProps,
+  walkthroughSchema,
+} from "./Walkthrough";
+import {
   Reel,
   calculateReelMetadata,
   defaultReelProps,
@@ -46,6 +52,20 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
         defaultProps={defaultReelProps}
+      />
+
+      {/* Blueprint-to-built walkthrough from still photos: each room draws
+          itself as a blueprint, then the photo scans in with a 3D camera
+          move. Render with: npm run walkthrough jobs/<job>.json */}
+      <Composition
+        id="Walkthrough"
+        component={Walkthrough}
+        calculateMetadata={calculateWalkthroughMetadata}
+        schema={walkthroughSchema}
+        width={1080}
+        height={1920}
+        fps={30}
+        defaultProps={defaultWalkthroughProps}
       />
 
       {/* The one-off 9-step playbook edit. */}

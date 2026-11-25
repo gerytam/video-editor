@@ -121,3 +121,55 @@ on a long unbroken line. More line breaks in the script = tighter sync.
   code are versioned; the media is not.
 - If a machine can't download Chrome, point Remotion at an existing binary:
   `export REMOTION_BROWSER_EXECUTABLE=/path/to/chrome-headless-shell`
+
+## Blueprint walkthrough (from still photos)
+
+For clients who send project photos instead of footage. Each room draws itself
+as a blueprint on navy paper, the real photo scans in over the lines, and a
+virtual camera moves through the still in 3D (depth map from Depth Anything
+V2). Give a shot a `before` photo and it opens on the old room instead:
+before → redrawn → built.
+
+**1. Get the photos.** From an iCloud shared album link:
+
+```bash
+npm run fetch-album -- "https://photos.icloud.com/shared/album/<token>" work/<client>/raw
+```
+
+**2. Write a job** in `jobs/` (see `jobs/turnkey-walkthrough.json` and
+`jobs/turnkey-before-after.json`). Per shot: `photo`, optional `before`,
+`label`, `sheet` (the drawing number on the title block), optional `move`
+(`push`, `push-left`, `push-right`, `truck-left`, `truck-right`, `rise`).
+The `brand` block drives the end card and paper color.
+
+Pick photos shot square-on to the room with clear straight lines (cabinets,
+windows, tile). Those make the best line drawings. Portrait 3:4 iPhone photos
+fill the 9:16 frame; landscape ones work as `before` prints.
+
+**3. Prep** (once per photo; writes depth maps and line drawings next to the
+resized photos in `public/<assetDir>/`):
+
+```bash
+pip install -r scripts/walkthrough/requirements.txt
+npm run walkthrough:prep -- jobs/<job>.json
+```
+
+The depth model (~100MB) downloads once from Hugging Face to
+`~/.cache/walkthrough/`.
+
+**4. Render:**
+
+```bash
+npm run walkthrough -- jobs/<job>.json      # -> out/<id>.mp4
+```
+
+Renders through WebGL. On a headless Linux box it uses the software backend
+(`--gl=swangle`), about 3 minutes for 25 seconds on 4 cores. Preview and
+tweak in `npm run dev` under the **Walkthrough** composition.
+
+| What | Where |
+| --- | --- |
+| Shot pacing (draw / reveal / hold) | `src/Walkthrough/timeline.ts` |
+| Camera moves and strength | `src/Walkthrough/camera.ts` |
+| Line weight, glow, overshoot | `src/Walkthrough/Wireframe.tsx` |
+| How many lines, which ones | `MAX_LINES`, `min_len` in `scripts/walkthrough/prep.py` |

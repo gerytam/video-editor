@@ -1,0 +1,45 @@
+{
+  "id": "turnkey-before-after",
+  "clientId": "turnkey",
+  "sourceDir": "work/turnkey/raw",
+  "assetDir": "jobs/turnkey",
+  "hook": "Same kitchen. Different decade.",
+  "shots": [
+    {
+      "before": "IMG_1863.JPG",
+      "photo": "IMG_2047.HEIC",
+      "label": "Kitchen",
+      "sheet": "A-201"
+    },
+    {
+      "before": "IMG_1864.JPG",
+      "photo": "IMG_2046.HEIC",
+      "label": "Kitchen Island",
+      "sheet": "A-202"
+    },
+    {
+      "before": "IMG_1867.JPG",
+      "photo": "IMG_2048.HEIC",
+      "label": "Bath",
+      "sheet": "A-301"
+    },
+    {
+      "before": "IMG_1866.JPG",
+      "photo": "IMG_2053.HEIC",
+      "label": "Bath",
+      "sheet": "A-302"
+    }
+  ],
+  "brand": {
+    "name": "Turn Key Construction & Design",
+    "short": "TURN KEY",
+    "logo": "logos/turnkey-light.png",
+    "tagline": "From Blueprints to Reality.",
+    "services": "New Construction · Renovations · Decks",
+    "area": "Sussex County, Delaware",
+    "phone": "302-493-6995",
+    "site": "turnkeyde.com",
+    "cta": "Schedule your consultation",
+    "paper": "#04284C"
+  }
+}

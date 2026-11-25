@@ -1,0 +1,56 @@
+{
+  "id": "turnkey-walkthrough",
+  "clientId": "turnkey",
+  "sourceDir": "work/turnkey/raw",
+  "assetDir": "jobs/turnkey",
+  "hook": "Every room starts as a drawing.",
+  "shots": [
+    {
+      "photo": "IMG_2060.HEIC",
+      "label": "Kitchen",
+      "sheet": "A-201"
+    },
+    {
+      "photo": "IMG_2046.HEIC",
+      "label": "Kitchen",
+      "sheet": "A-202"
+    },
+    {
+      "photo": "IMG_1957.HEIC",
+      "label": "Pantry",
+      "sheet": "A-203"
+    },
+    {
+      "photo": "IMG_2048.HEIC",
+      "label": "Bath",
+      "sheet": "A-301"
+    },
+    {
+      "photo": "IMG_2053.HEIC",
+      "label": "Bath",
+      "sheet": "A-302"
+    },
+    {
+      "photo": "IMG_1842.HEIC",
+      "label": "Great Room",
+      "sheet": "A-401"
+    },
+    {
+      "photo": "IMG_1843.HEIC",
+      "label": "The View",
+      "sheet": "A-402"
+    }
+  ],
+  "brand": {
+    "name": "Turn Key Construction & Design",
+    "short": "TURN KEY",
+    "logo": "logos/turnkey-light.png",
+    "tagline": "From Blueprints to Reality.",
+    "services": "New Construction · Renovations · Decks",
+    "area": "Sussex County, Delaware",
+    "phone": "302-493-6995",
+    "site": "turnkeyde.com",
+    "cta": "Schedule your consultation",
+    "paper": "#04284C"
+  }
+}
