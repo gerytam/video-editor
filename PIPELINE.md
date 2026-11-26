@@ -121,3 +121,39 @@ on a long unbroken line. More line breaks in the script = tighter sync.
   code are versioned; the media is not.
 - If a machine can't download Chrome, point Remotion at an existing binary:
   `export REMOTION_BROWSER_EXECUTABLE=/path/to/chrome-headless-shell`
+
+## HyperFrames (HTML video, agent-driven)
+
+[HyperFrames](https://github.com/heygen-com/hyperframes) sits next to the
+Remotion pipeline. Remotion is the batch machine for the house reel look;
+HyperFrames is for one-off pieces you'd rather describe than code: motion
+graphics, launch promos, explainers, kinetic captions, remakes of a reference
+video.
+
+**Skills** live in `.claude/skills/` (committed), so every Claude Code session
+on this repo, cloud or local, loads them automatically: `/hyperframes`,
+`/hyperframes-cli`, `/hyperframes-registry`, `/media-use`,
+`/remotion-to-hyperframes`, `/reverse-any-video`, `/style-sampling`.
+Refresh them from the repo root with:
+
+```bash
+CLAUDE_CONFIG_DIR=$PWD/.claude npx hyperframes skills update
+```
+
+**Projects** go in `hyperframes/<name>/`. `hyperframes/hook-test/` is a
+working example: Azureye hook card + comment-keyword CTA over a vertical clip,
+with hook text, keyword and brand colors exposed as variables.
+
+Just ask Claude, e.g. *"Using /hyperframes, make a 20-second vertical promo
+for acme in hyperframes/acme-promo"*. To drive it by hand from a project
+folder:
+
+```bash
+L="node ../../.claude/skills/hyperframes/scripts/plugin-cli.mjs"
+$L preview                              # Studio preview in the browser
+$L check --json                         # lint + layout + safe-zone gate
+$L render --output out/video.mp4        # -> out/ (gitignored)
+```
+
+Needs Node 22+, FFmpeg and Chrome. A 12-second 1080x1920 clip renders in
+about 45 s in a cloud session.

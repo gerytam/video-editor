@@ -18,3 +18,7 @@ build
 public/jobs/
 jobs/jobs.json
 work/
+
+# HyperFrames: renders and per-project scratch state
+hyperframes/*/out/
+hyperframes/*/.hyperframes/

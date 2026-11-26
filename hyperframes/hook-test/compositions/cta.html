@@ -1,0 +1,43 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #cta-box {
+      position: absolute;
+      left: 120px;
+      width: 660px;
+      top: 1120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-family: "Archivo Black", sans-serif;
+      color: #fff;
+    }
+    #cta-line {
+      font-size: 42px;
+      line-height: 1.1;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
+    }
+    #cta-chip {
+      padding: 12px 22px;
+      background: var(--brand, #FFE800);
+      color: var(--onbrand, #000);
+      font-size: 54px;
+      border-radius: 14px;
+    }
+  </style>
+  <div id="root" data-composition-id="cta" data-width="1080" data-height="1920">
+    <div id="cta-wrap" class="clip" data-start="0" data-duration="3.5">
+      <div id="cta-box">
+        <div id="cta-line">Comment</div>
+        <div id="cta-chip" data-var-text="keyword">DRAINAGE</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#cta-line", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0);
+    tl.fromTo("#cta-chip", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.2)" }, 0.15);
+    window.__timelines["cta"] = tl;
+  </script>
+</template>
